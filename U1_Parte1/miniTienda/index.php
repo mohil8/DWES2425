@@ -1,3 +1,4 @@
+
 <?php
 require_once 'Ticket.php';
 require_once 'AccesoDatos.php';

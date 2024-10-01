@@ -1,60 +1,98 @@
 <?php
 
-require_once 'Ticket.php';
+class Ticket{
+    private $producto;
+    private $precioU;
+    private $cantidad;
+    private $total;
 
-class AccesoDatos{
-    private $nombre;
-
-    function __construct($n)
-    {
-        $this->nombre=$n;
+    function __construct($p,$pU,$c){
+        $this->producto=$p;
+        $this->precioU=$pU;
+        $this->cantidad=$c;
+        $this->total=$pU*$c;
     }
-
-    function insertarProducto(Ticket $t){
-        //Abrir el fichero
-        $fichero = fopen($this->nombre,'a+');
-
-        //Insertar al final
-        fwrite($fichero, $t->getProducto().';'.$t->getPrecioU().';'.$t->getCantidad().
-            ';'.$t->getTotal().PHP_EOL);
-
-        //Cerrar el fichero
-        fclose($fichero);
-
-    }
-
-    function obtenerProductos(){
-        $resultado=array();
-
-        //Cargamos el fichero en un array
-        $tmp = file($this->nombre);
-        foreach($tmp as $linea){
-            $campos=explode(';',$linea);
-            //Crear objeto ticket
-            $t=new Ticket($campos[0],$campos[1],$campos[2]);
-            //añadimos $t al array de objetos resultado
-            $resultado[]=$t;
-        }
-
-        return $resultado;
+    
+    function __destruct(){
+        //echo "<h4 style='color:red'>Producto ".$this->producto." destruido</h4>";
     }
 
     /**
-     * Get the value of nombre
+     * Get the value of producto
      */ 
-    public function getNombre()
+    public function getProducto()
     {
-        return $this->nombre;
+        return $this->producto;
     }
 
     /**
-     * Set the value of nombre
+     * Set the value of producto
      *
      * @return  self
      */ 
-    public function setNombre($nombre)
+    public function setProducto($producto)
     {
-        $this->nombre = $nombre;
+        $this->producto = $producto;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of precioU
+     */ 
+    public function getPrecioU()
+    {
+        return $this->precioU;
+    }
+
+    /**
+     * Set the value of precioU
+     *
+     * @return  self
+     */ 
+    public function setPrecioU($precioU)
+    {
+        $this->precioU = $precioU;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cantidad
+     */ 
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * Set the value of cantidad
+     *
+     * @return  self
+     */ 
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of total
+     */ 
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * Set the value of total
+     *
+     * @return  self
+     */ 
+    public function setTotal($total)
+    {
+        $this->total = $total;
 
         return $this;
     }
